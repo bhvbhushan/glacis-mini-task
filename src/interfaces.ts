@@ -48,5 +48,11 @@ interface CountryDetails {
 }
 
 export interface tableData {
-  [key: string]: number
+  [key: string]: number;
+}
+
+export interface ApiResponse {
+  success: boolean;
+  data?: ResponseData[];
+  error?: string;
 }

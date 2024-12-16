@@ -1,4 +1,4 @@
-import { getFlightCount } from "./api";
+import { getFlightCount, getMockData } from "./api";
 import { formatTableData, validateIATACode } from "./helper";
 import { ResponseData, tableData } from "./interfaces";
 
@@ -8,11 +8,14 @@ const codeErrorEle = document.getElementById(
 ) as HTMLParagraphElement;
 
 const tableEle = document.getElementById("countTable") as HTMLDivElement;
-const loaderEle = document.getElementById('loader') as HTMLDivElement
+const loaderEle = document.getElementById("loader") as HTMLDivElement;
+const mockBtn = document.getElementById("mockData") as HTMLButtonElement;
 
-const showLoader = (show: boolean) =>{
-  show ? loaderEle.classList.remove("hidden") :loaderEle.classList.add("hidden");
-}
+const showLoader = (show: boolean) => {
+  show
+    ? loaderEle.classList.remove("hidden")
+    : loaderEle.classList.add("hidden");
+};
 
 const showErrorMessage = (show: boolean, msg?: string) => {
   if (!show) {
@@ -40,22 +43,19 @@ const formSubmit = async (e: SubmitEvent) => {
   const formData = new FormData(airportForm);
   const airportCode = formData.get("airport-code") as string;
   if (handlingCodeValidation(airportCode.toUpperCase())) {
-    showLoader(true)
-    tableEle.innerHTML = ''
-    const { success, data, error } = await getFlightCount(airportCode);
-    if (success) {
-      const formattedData = formatTableData(data as ResponseData[]);
-      tableEle.appendChild(createTable(formattedData));
-    } else {
-      showErrorMessage(true, error as string);
-    }
-    showLoader(false)
+    await getData(false, airportCode);
+    // showLoader(true);
+    // tableEle.innerHTML = "";
+    // const { success, data, error } = await getFlightCount(airportCode);
+    // if (success) {
+    //   const formattedData = formatTableData(data as ResponseData[]);
+    //   tableEle.appendChild(createTable(formattedData));
+    // } else {
+    //   showErrorMessage(true, error as string);
+    // }
+    // showLoader(false);
   }
 };
-
-
-
-
 
 function createTable(data: tableData): HTMLElement {
   if (!data || Object.keys(data).length === 0) {
@@ -114,5 +114,24 @@ function createTable(data: tableData): HTMLElement {
   return table;
 }
 
+const mockBtnHandler = async (_e: MouseEvent) => {
+  await getData(true);
+};
+
+const getData = async (mock: boolean, code?: string) => {
+  showLoader(true);
+  tableEle.innerHTML = "";
+  const { success, data, error } = mock
+    ? await getMockData()
+    : await getFlightCount(code || "");
+  if (success) {
+    const formattedData = formatTableData(data as ResponseData[]);
+    tableEle.appendChild(createTable(formattedData));
+  } else {
+    showErrorMessage(true, error as string);
+  }
+  showLoader(false);
+};
 
 airportForm.addEventListener("submit", formSubmit);
+mockBtn.addEventListener("click", mockBtnHandler);

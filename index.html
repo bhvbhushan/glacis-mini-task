@@ -35,7 +35,9 @@
             d="M4 12a8 8 0 018-8v8H4z"
           ></path>
         </svg>
-        <span class="text-gray-700 text-lg font-semibold">Fetching Country-wise Flight Count...</span>
+        <span class="text-gray-700 text-lg font-semibold"
+          >Fetching Country-wise Flight Count...</span
+        >
       </div>
     </div>
 
@@ -44,8 +46,10 @@
     <div
       class="text-center w-screen flex flex-col h-full justify-start items-center bg-white shadow-md rounded"
     >
-      <div class="sm:w-2/5 w-full">
-        <form class="px-8 pt-6 pb-8 mb-4" id="airport">
+      <div
+        class="md:w-3/5 w-full flex-row sm:flex-col border border-gray-200 rounded mt-4 justify-between items-center mb-2"
+      >
+        <form class="px-8 pt-6 pb-8" id="airport">
           <div class="mb-4">
             <label
               class="block text-gray-700 text-sm font-bold mb-2"
@@ -65,15 +69,23 @@
             <p id="codeError" class="text-red-500 text-xs italic hidden"></p>
           </div>
 
-          <div class="flex items-center justify-between">
-            <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Get Flight Count
-            </button>
-          </div>
+          <!-- <div class="flex items-center justify-between"> -->
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Get Flight Count
+          </button>
+          <!-- </div> -->
         </form>
+        <div class="h2">OR</div>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline m-5 h-10 self-center"
+          type="button"
+          id="mockData"
+        >
+          Run Mock Data
+        </button>
       </div>
       <div class="container mx-auto px-4 min-h-1/2 max-h-3/4 overflow-auto">
         <div id="countTable"></div>
