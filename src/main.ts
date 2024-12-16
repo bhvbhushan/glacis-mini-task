@@ -35,6 +35,7 @@ const formSubmit = async (e: SubmitEvent) => {
   const formData = new FormData(airportForm);
   const airportCode = formData.get("airport-code") as string;
   if (handlingCodeValidation(airportCode)) {
+    tableEle.innerHTML = ''
     const { success, data, error } = await getFlightCount(airportCode);
     if (success) {
       const formattedData = formatTableData(data as ResponseData[]);
@@ -45,9 +46,8 @@ const formSubmit = async (e: SubmitEvent) => {
   }
 };
 
-airportForm.addEventListener("submit", formSubmit);
 
-//Get Table id
+
 
 
 function createTable(data: tableData): HTMLElement {
@@ -106,3 +106,6 @@ function createTable(data: tableData): HTMLElement {
 
   return table;
 }
+
+
+airportForm.addEventListener("submit", formSubmit);
