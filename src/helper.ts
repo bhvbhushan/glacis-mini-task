@@ -6,22 +6,25 @@ export const validateIATACode = (code: string): boolean => {
   return trimmedCode.length === 3 && regex.test(code);
 };
 
-export const delay = (sec: number): Promise<void> =>{
+/** Generating artificial delay for Mock Data */
+export const delay = (sec: number): Promise<void> => {
   return new Promise((resolve) => {
-    setTimeout(resolve, sec*1000);
+    setTimeout(resolve, sec * 1000);
   });
-}
+};
 
-
-export const formatTableData = (data: ResponseData[])=>{
+/** Transforms API Response data into Table Data format */
+export const formatTableData = (data: ResponseData[]) => {
   let flightCount: tableData = {};
-  data.forEach(airportData => {
-    const arrivals = airportData.airport.pluginData.schedule.arrivals.data
-    arrivals.forEach(flightData =>{
-      const countryName = flightData.flight.airport.origin.position.country.name || 'N/A'
-      flightCount[countryName] = flightCount[countryName] ? flightCount[countryName]+1 : 1
-    })
-  })
-  return flightCount
-  
-}
+  data.forEach((airportData) => {
+    const arrivals = airportData.airport.pluginData.schedule.arrivals.data;
+    arrivals.forEach((flightData) => {
+      const countryName =
+        flightData.flight.airport.origin.position.country.name || "N/A";
+      flightCount[countryName] = flightCount[countryName]
+        ? flightCount[countryName] + 1
+        : 1;
+    });
+  });
+  return flightCount;
+};

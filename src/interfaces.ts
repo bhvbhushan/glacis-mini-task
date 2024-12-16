@@ -1,3 +1,14 @@
+export interface tableData {
+  [key: string]: number;
+}
+
+export interface ApiResponse {
+  success: boolean;
+  data?: ResponseData[];
+  error?: string;
+}
+
+/**Below are the interfaces for the API response received from Flights API */
 export interface ResponseData {
   airport: Airport;
   [key: string]: any;
@@ -45,14 +56,4 @@ interface Position {
 
 interface CountryDetails {
   name: string;
-}
-
-export interface tableData {
-  [key: string]: number;
-}
-
-export interface ApiResponse {
-  success: boolean;
-  data?: ResponseData[];
-  error?: string;
 }

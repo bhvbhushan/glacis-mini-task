@@ -2,6 +2,7 @@ import { getFlightCount, getMockData } from "./api";
 import { formatTableData, validateIATACode } from "./helper";
 import { ResponseData, tableData } from "./interfaces";
 
+/** Getting required HTML Elements */
 const airportForm = document.getElementById("airport") as HTMLFormElement;
 const codeErrorEle = document.getElementById(
   "codeError"
@@ -11,12 +12,20 @@ const tableEle = document.getElementById("countTable") as HTMLDivElement;
 const loaderEle = document.getElementById("loader") as HTMLDivElement;
 const mockBtn = document.getElementById("mockData") as HTMLButtonElement;
 
+/**
+ * Display loader when data fetching is happening
+ */
 const showLoader = (show: boolean) => {
   show
     ? loaderEle.classList.remove("hidden")
     : loaderEle.classList.add("hidden");
 };
 
+/**
+ * Display Error message when validation fails
+ * @param show
+ * @param msg
+ */
 const showErrorMessage = (show: boolean, msg?: string) => {
   if (!show) {
     codeErrorEle.classList.add("hidden");
@@ -28,6 +37,11 @@ const showErrorMessage = (show: boolean, msg?: string) => {
   }
 };
 
+/**
+ *
+ * @param code Code validation helper message
+ * @returns
+ */
 const handlingCodeValidation = (code: string) => {
   if (validateIATACode(code)) {
     showErrorMessage(false);
@@ -38,25 +52,24 @@ const handlingCodeValidation = (code: string) => {
   }
 };
 
+/**
+ * Flight code submission handler, does the validation check for the Code
+ * @param e
+ */
 const formSubmit = async (e: SubmitEvent) => {
   e.preventDefault();
   const formData = new FormData(airportForm);
   const airportCode = formData.get("airport-code") as string;
   if (handlingCodeValidation(airportCode.toUpperCase())) {
     await getData(false, airportCode);
-    // showLoader(true);
-    // tableEle.innerHTML = "";
-    // const { success, data, error } = await getFlightCount(airportCode);
-    // if (success) {
-    //   const formattedData = formatTableData(data as ResponseData[]);
-    //   tableEle.appendChild(createTable(formattedData));
-    // } else {
-    //   showErrorMessage(true, error as string);
-    // }
-    // showLoader(false);
   }
 };
 
+/**
+ * Generates Table Element based on table data
+ * @param data
+ * @returns
+ */
 function createTable(data: tableData): HTMLElement {
   if (!data || Object.keys(data).length === 0) {
     const noData = document.createElement("p");
@@ -114,10 +127,18 @@ function createTable(data: tableData): HTMLElement {
   return table;
 }
 
+/**
+ * Button handler for Mock Button to generate table using Mock Data
+ */
 const mockBtnHandler = async (_e: MouseEvent) => {
   await getData(true);
 };
 
+/**
+ * Data controller, it converts API data to table data and toggles loader
+ * @param mock
+ * @param code
+ */
 const getData = async (mock: boolean, code?: string) => {
   showLoader(true);
   tableEle.innerHTML = "";
