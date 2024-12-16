@@ -39,7 +39,7 @@ const formSubmit = async (e: SubmitEvent) => {
   e.preventDefault();
   const formData = new FormData(airportForm);
   const airportCode = formData.get("airport-code") as string;
-  if (handlingCodeValidation(airportCode)) {
+  if (handlingCodeValidation(airportCode.toUpperCase())) {
     showLoader(true)
     tableEle.innerHTML = ''
     const { success, data, error } = await getFlightCount(airportCode);
