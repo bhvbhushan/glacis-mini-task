@@ -8,12 +8,44 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="text-center w-screen flex flex-col h-full  justify-start items-center bg-white shadow-md rounded ">
-      <div class="sm:w-2/5 w-full">
-        <form
-          class=" px-8 pt-6 pb-8 mb-4"
-          id="airport"
+    <!-- This is for Loader-->
+    <div
+      id="loader"
+      class="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50 hidden"
+    >
+      <div class="flex items-center space-x-2">
+        <!-- Spinner -->
+        <svg
+          class="animate-spin h-8 w-8 text-blue-600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
         >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v8H4z"
+          ></path>
+        </svg>
+        <span class="text-gray-700 text-lg font-semibold">Fetching Country-wise Flight Count...</span>
+      </div>
+    </div>
+
+    <!-- This is for Main Content-->
+
+    <div
+      class="text-center w-screen flex flex-col h-full justify-start items-center bg-white shadow-md rounded"
+    >
+      <div class="sm:w-2/5 w-full">
+        <form class="px-8 pt-6 pb-8 mb-4" id="airport">
           <div class="mb-4">
             <label
               class="block text-gray-700 text-sm font-bold mb-2"
@@ -30,9 +62,7 @@
               aria-describedby="codeError"
               required
             />
-            <p id="codeError" class="text-red-500 text-xs italic hidden">
-              
-            </p>
+            <p id="codeError" class="text-red-500 text-xs italic hidden"></p>
           </div>
 
           <div class="flex items-center justify-between">

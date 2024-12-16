@@ -8,6 +8,11 @@ const codeErrorEle = document.getElementById(
 ) as HTMLParagraphElement;
 
 const tableEle = document.getElementById("countTable") as HTMLDivElement;
+const loaderEle = document.getElementById('loader') as HTMLDivElement
+
+const showLoader = (show: boolean) =>{
+  show ? loaderEle.classList.remove("hidden") :loaderEle.classList.add("hidden");
+}
 
 const showErrorMessage = (show: boolean, msg?: string) => {
   if (!show) {
@@ -35,6 +40,7 @@ const formSubmit = async (e: SubmitEvent) => {
   const formData = new FormData(airportForm);
   const airportCode = formData.get("airport-code") as string;
   if (handlingCodeValidation(airportCode)) {
+    showLoader(true)
     tableEle.innerHTML = ''
     const { success, data, error } = await getFlightCount(airportCode);
     if (success) {
@@ -43,6 +49,7 @@ const formSubmit = async (e: SubmitEvent) => {
     } else {
       showErrorMessage(true, error as string);
     }
+    showLoader(false)
   }
 };
 
