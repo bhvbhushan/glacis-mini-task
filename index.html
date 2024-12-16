@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,17 +7,47 @@
     <title>Glacis Mini Project</title>
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
-  <body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="text-center">
-      <h1 class="text-4xl font-bold text-gray-800 mb-4">
-        Hello, Vite with TypeScript and Tailwind!
-      </h1>
-      <button
-        id="clickMe"
-        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-      >
-        Click Me
-      </button>
+  <body class="bg-gray-100 flex items-center justify-center h-screen ">
+    <div class="text-center w-screen flex flex-col min-h-3/4 max-h-3/4 justify-start items-center bg-white shadow-md rounded">
+      <div class="w-2/5 ">
+        <form
+          class=" px-8 pt-6 pb-8 mb-4"
+          id="airport"
+        >
+          <div class="mb-4">
+            <label
+              class="block text-gray-700 text-sm font-bold mb-2"
+              for="airport-code"
+            >
+              Airport Code (3-Letters IATA Code)
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="airport-code"
+              name="airport-code"
+              type="text"
+              placeholder="LAX"
+              aria-describedby="codeError"
+              required
+            />
+            <p id="codeError" class="text-red-500 text-xs italic hidden">
+              
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Get Flight Count
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="container mx-auto px-4 min-h-full max-h-full overflow-auto">
+        <div id="countTable"></div>
+      </div>
     </div>
 
     <script type="module" src="/src/main.ts"></script>
