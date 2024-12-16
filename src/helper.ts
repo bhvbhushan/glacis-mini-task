@@ -1,8 +1,9 @@
 import { ResponseData, tableData } from "./interfaces";
 
 export const validateIATACode = (code: string): boolean => {
+  const regex = /^[A-Za-z]{3}$/;
   const trimmedCode = code.trim().toUpperCase();
-  return trimmedCode.length === 3;
+  return trimmedCode.length === 3 && regex.test(code);
 };
 
 export const delay = (sec: number): Promise<void> =>{
